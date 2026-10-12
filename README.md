@@ -99,36 +99,50 @@ california-housing-mlops/
 
 ## Getting Started
 
-Clone the repository:
+Clone the repository using the `clean-main` branch:
 
 ```bash
-git clone https://github.com/lbreverman/california-housing-mlops.git
+git clone --branch clean-main https://github.com/lbreverman/california-housing-mlops.git
 cd california-housing-mlops
 ```
 
-Create and activate a virtual environment:
+Create a virtual environment using Python 3.11:
 
-```bash
-python -m venv .venv
+```powershell
+py -3.11 -m venv .venv
 ```
 
-On Windows PowerShell:
+Activate the virtual environment on Windows PowerShell:
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
 ```
 
-Install dependencies:
+Install the required dependencies:
 
-```bash
-pip install -r requirements.txt
+```powershell
+python -m pip install -r requirements.txt
 ```
 
-Reproduce the machine learning pipeline:
+Reproduce the complete machine learning pipeline:
 
-```bash
+```powershell
 dvc repro
 ```
+
+Verify that all pipeline stages are up to date:
+
+```powershell
+dvc status
+```
+
+Run the automated tests:
+
+```powershell
+python -m pytest
+```
+
+The pipeline generates the prepared dataset, trained model, evaluation metrics, model comparison, and drift monitoring report.
 
 ## Key Findings
 
@@ -138,12 +152,20 @@ dvc repro
 - Statistical drift monitoring detected a distribution change in median income.
 - The project demonstrates reproducibility, model comparison, and monitoring within a structured machine learning workflow.
 
+## Testing and Continuous Integration
+
+The project includes automated testing with pytest and a GitHub Actions workflow.
+
+GitHub Actions runs the Python tests to help identify issues when changes are pushed to the repository.
+
+The project was also successfully reproduced in a fresh GitHub clone using Python 3.11 and DVC, confirming that the documented setup can rebuild the machine learning pipeline.
+
 ## Future Improvements
 
-- Add automated unit tests and continuous integration.
 - Expand experiment tracking and hyperparameter tuning.
-- Implement a prediction API.
-- Introduce scheduled drift monitoring and model retraining.
+- Implement a prediction API using FastAPI.
+- Introduce scheduled data drift monitoring and automated model retraining.
+- Add model performance visualizations and an interactive dashboard.
 
 ## Author
 
