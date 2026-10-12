@@ -1,0 +1,36 @@
+stages:
+  prepare_data:
+    cmd: python -m src.prepare_data
+    deps:
+    - src/prepare_data.py
+    outs:
+    - data/california_housing.csv
+  train_model:
+    cmd: python -m src.train
+    deps:
+    - data/california_housing.csv
+    - src/train.py
+    outs:
+    - models/random_forest_model.joblib
+  evaluate_model:
+    cmd: python -m src.evaluate
+    deps:
+    - data/california_housing.csv
+    - models/random_forest_model.joblib
+    - src/evaluate.py
+    outs:
+    - reports/metrics.json
+  compare_models:
+    cmd: python -m src.compare_experiments
+    deps:
+    - data/california_housing.csv
+    - src/compare_experiments.py
+    outs:
+    - reports/model_comparison.json
+  monitor_drift:
+    cmd: python -m src.monitor_drift
+    deps:
+    - data/california_housing.csv
+    - src/monitor_drift.py
+    outs:
+    - reports/drift_report.json

@@ -1,0 +1,24 @@
+# Python virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Environment files
+.env
+
+# MLflow tracking
+mlruns/
+mlartifacts/
+
+# Generated models and reports
+models/
+reports/
+
+# DVC cache
+.dvc/cache/
+
+# California Housing dataset
+/data/california_housing.csv

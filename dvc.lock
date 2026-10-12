@@ -1,0 +1,82 @@
+schema: '2.0'
+stages:
+  prepare_data:
+    cmd: python -m src.prepare_data
+    deps:
+    - path: src/prepare_data.py
+      hash: md5
+      md5: 2e18241cacaee5c2787669354290fd93
+      size: 1732
+    outs:
+    - path: data/california_housing.csv
+      hash: md5
+      md5: 25c2ddd8a827471174cb09a13f295420
+      size: 2009952
+  train_model:
+    cmd: python -m src.train
+    deps:
+    - path: data/california_housing.csv
+      hash: md5
+      md5: 25c2ddd8a827471174cb09a13f295420
+      size: 2009952
+    - path: src/train.py
+      hash: md5
+      md5: 47fd73487e388fd6755afdcb5761d92d
+      size: 2721
+    outs:
+    - path: models/random_forest_model.joblib
+      hash: md5
+      md5: 0700bba773f46118c2d535fea3774c5a
+      size: 144801891
+  evaluate_model:
+    cmd: python -m src.evaluate
+    deps:
+    - path: data/california_housing.csv
+      hash: md5
+      md5: 25c2ddd8a827471174cb09a13f295420
+      size: 2009952
+    - path: models/random_forest_model.joblib
+      hash: md5
+      md5: 0700bba773f46118c2d535fea3774c5a
+      size: 144801891
+    - path: src/evaluate.py
+      hash: md5
+      md5: eabe35754b3ed22f76b3a206d45e522b
+      size: 1781
+    outs:
+    - path: reports/metrics.json
+      hash: md5
+      md5: 4eab0f58d6f72625edde2fe64b141a2b
+      size: 99
+  compare_models:
+    cmd: python -m src.compare_experiments
+    deps:
+    - path: data/california_housing.csv
+      hash: md5
+      md5: 25c2ddd8a827471174cb09a13f295420
+      size: 2009952
+    - path: src/compare_experiments.py
+      hash: md5
+      md5: d38bfbc058a91857d6e905ee11832a2e
+      size: 3373
+    outs:
+    - path: reports/model_comparison.json
+      hash: md5
+      md5: 32ec2fb04f3711b2cbb27c9d209d843b
+      size: 370
+  monitor_drift:
+    cmd: python -m src.monitor_drift
+    deps:
+    - path: data/california_housing.csv
+      hash: md5
+      md5: 25c2ddd8a827471174cb09a13f295420
+      size: 2009952
+    - path: src/monitor_drift.py
+      hash: md5
+      md5: 3e6183cb7b963c43828b1597fd715389
+      size: 3031
+    outs:
+    - path: reports/drift_report.json
+      hash: md5
+      md5: 381548d52855bbad48a10475c6f6446b
+      size: 1491
