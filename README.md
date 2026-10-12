@@ -1,5 +1,5 @@
 # California Housing Price Prediction — MLOps Pipeline
-
+[![Python Tests](https://github.com/lbreverman/california-housing-mlops/actions/workflows/python-tests.yml/badge.svg?branch=clean-main)](https://github.com/lbreverman/california-housing-mlops/actions/workflows/python-tests.yml)
 ## Project Overview
 
 This project demonstrates an end-to-end machine learning workflow for predicting California housing prices using Python, scikit-learn, and Data Version Control (DVC).
