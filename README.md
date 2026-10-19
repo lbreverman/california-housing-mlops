@@ -17,6 +17,8 @@ The goal is to build a reproducible machine learning pipeline that supports reli
 - Git and GitHub
 - Joblib
 - SciPy
+- MLflow (Experiment Tracking)
+- Evidently AI (Data Drift Monitoring)
 
 ## Dataset
 
@@ -37,6 +39,44 @@ Three regression models were evaluated:
 | Linear Regression | 0.5344 | 0.7413 | 0.5806 |
 
 Random Forest achieved the strongest performance, explaining approximately 80.12% of the variance in housing prices on the evaluation dataset.
+
+
+## MLflow Experiment Tracking
+
+The project uses MLflow to track and compare Random Forest regression experiments.
+
+Five Random Forest configurations were evaluated using different hyperparameter settings.
+
+MLflow records model parameters, evaluation metrics, and trained model artifacts to support reproducible experimentation.
+
+### Best Experiment Results
+
+| Metric | Result |
+|---|---|
+| Model | Random Forest |
+| Number of Trees | 200 |
+| Maximum Depth | None |
+| MAE | 0.3296 |
+| RMSE | 0.5085 |
+| R² | 0.8026 |
+
+The best experiment achieved an R² of approximately 0.803 on the evaluation dataset.
+
+The original model comparison results are retained in the Machine Learning Models section above.
+
+To run the experiment tracking pipeline:
+
+```powershell
+dvc repro run_experiments
+```
+
+To open the MLflow tracking interface:
+
+```powershell
+mlflow ui --port 5001
+```
+
+Then open http://127.0.0.1:5001 in your browser.
 
 ## Reproducible DVC Pipeline
 
@@ -59,21 +99,6 @@ Its dependency graph can be viewed using:
 ```bash
 dvc dag
 ```
-
-## Data Drift Monitoring
-
-The project includes a statistical drift monitoring script using the Kolmogorov-Smirnov test.
-
-In a simulated drift scenario:
-
-- Total numerical features monitored: 8
-- Features with detected drift: 1
-- Drift percentage: 12.5%
-- Feature with detected drift: `MedInc`
-
-The monitoring results are saved to `reports/drift_report.json`.
-
-These results demonstrate how changes in input feature distributions can be identified as part of an MLOps workflow.
 
 ## Project Structure
 
@@ -160,6 +185,11 @@ GitHub Actions runs the Python tests to help identify issues when changes are pu
 
 The project was also successfully reproduced in a fresh GitHub clone using Python 3.11 and DVC, confirming that the documented setup can rebuild the machine learning pipeline.
 
+## Data Drift Monitoring
+
+This project includes automated data drift monitoring using
+statistical hypothesis testing and Evidently AI.
+
 ## Future Improvements
 
 - Expand experiment tracking and hyperparameter tuning.
@@ -175,11 +205,6 @@ Data Analytics and Machine Learning Portfolio
 
 [GitHub Profile](https://github.com/lbreverman)
 
-
-## Data Drift Monitoring
-
-This project includes automated data drift monitoring using
-statistical hypothesis testing and Evidently AI.
 
 ### Monitoring Approach
 
