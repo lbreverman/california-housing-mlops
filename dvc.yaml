@@ -1,8 +1,10 @@
 stages:
+ 
   prepare_data:
     cmd: python -m src.prepare_data
     deps:
     - src/prepare_data.py
+    - ci_data/california_housing.csv
     outs:
     - data/california_housing.csv
   
