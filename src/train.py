@@ -1,7 +1,7 @@
-
 from pathlib import Path
 
 import joblib
+import mlflow
 import pandas as pd
 import yaml
 
@@ -14,7 +14,12 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
 
 
+
 def train_model():
+    # Configure MLflow experiment tracking
+    mlflow.set_tracking_uri("sqlite:///mlflow.db")
+    mlflow.set_experiment("California Housing Price Prediction")
+
     # Step 1: Load configuration
     config_path = Path("configs/config.yaml")
 
@@ -37,7 +42,7 @@ def train_model():
     ).columns.tolist()
 
     categorical_features = X.select_dtypes(
-        include=["object", "category"]
+    include=["object", "str", "category"]
     ).columns.tolist()
 
     # Step 5: Build preprocessing pipelines
@@ -104,6 +109,23 @@ def train_model():
 
     print(f"\nModel saved to: {model_path}")
 
+    # Step 11: Log experiment results with MLflow
+    
+    
+    with mlflow.start_run(run_name=f"RandomForest_{model_config['n_estimators']}_trees_depth_{model_config['max_depth']}"):
+        mlflow.log_param("model_type", model_config["type"])
+        mlflow.log_param("n_estimators", model_config["n_estimators"])
+        mlflow.log_param("max_depth", str(model_config["max_depth"]))
+        mlflow.log_param("random_state", model_config["random_state"])
+        mlflow.log_param("test_size", config["split"]["test_size"])
+
+        mlflow.log_metric("mae", float(mae))
+        mlflow.log_metric("rmse", float(rmse))
+        mlflow.log_metric("r2", float(r2))
+
+        mlflow.log_artifact(str(model_path), artifact_path="model")
+
+        print("\nExperiment logged successfully to MLflow!")
 
 if __name__ == "__main__":
     train_model()

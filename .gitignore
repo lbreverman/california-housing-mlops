@@ -22,3 +22,8 @@ reports/
 
 # California Housing dataset
 /data/california_housing.csv
+mlflow.db
+
+
+# Local experiment model files
+models/experiment_artifacts/

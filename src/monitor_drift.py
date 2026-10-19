@@ -1,10 +1,13 @@
-
 from pathlib import Path
 import json
 
 import numpy as np
 import pandas as pd
 from scipy.stats import ks_2samp
+
+from evidently import Report
+from evidently.presets import DataDriftPreset
+
 
 
 def monitor_drift():
@@ -97,6 +100,23 @@ def monitor_drift():
         json.dump(report, file, indent=4)
 
     print(f"\nDrift report saved to: {report_path}")
+
+    # Step 9: Generate an Evidently HTML drift report
+    print("\nGenerating Evidently HTML drift report...")
+
+    evidently_report = Report(
+        metrics=[DataDriftPreset()]
+    )
+
+    evidently_result = evidently_report.run(
+        reference_data=reference_data,
+        current_data=new_data
+    )
+
+    html_path = report_dir / "drift_report.html"
+    evidently_result.save_html(str(html_path))
+
+    print(f"Evidently HTML report saved to: {html_path}")
 
 
 if __name__ == "__main__":

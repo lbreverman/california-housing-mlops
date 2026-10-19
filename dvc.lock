@@ -21,7 +21,7 @@ stages:
     deps:
     - path: configs/config.yaml
       hash: md5
-      md5: 3a69573440385b8ac4b9856d643fa978
+      md5: c3c6e6a718ae384c6e4d55e4c1ea6eb5
       size: 376
     - path: data/california_housing.csv
       hash: md5
@@ -29,13 +29,13 @@ stages:
       size: 2009952
     - path: src/train.py
       hash: md5
-      md5: 98170f25f78fd029149395d36bb7e70f
-      size: 3264
+      md5: f457259129d89002b95eb1a8792692ec
+      size: 4255
     outs:
     - path: models/random_forest_model.joblib
       hash: md5
-      md5: 0700bba773f46118c2d535fea3774c5a
-      size: 144801891
+      md5: f455950f02b852c693938425b54c3f14
+      size: 289707891
   evaluate_model:
     cmd: python -m src.evaluate
     deps:
@@ -45,8 +45,8 @@ stages:
       size: 2009952
     - path: models/random_forest_model.joblib
       hash: md5
-      md5: 0700bba773f46118c2d535fea3774c5a
-      size: 144801891
+      md5: f455950f02b852c693938425b54c3f14
+      size: 289707891
     - path: src/evaluate.py
       hash: md5
       md5: eabe35754b3ed22f76b3a206d45e522b
@@ -54,24 +54,24 @@ stages:
     outs:
     - path: reports/metrics.json
       hash: md5
-      md5: 4eab0f58d6f72625edde2fe64b141a2b
+      md5: 18f1e589568d05decd0fd6d79376dbe6
       size: 99
   compare_models:
     cmd: python -m src.compare_experiments
     deps:
-    - path: data/california_housing.csv
+    - path: reports/experiments_manifest.json
       hash: md5
-      md5: 25c2ddd8a827471174cb09a13f295420
-      size: 2009952
+      md5: 32a8ea0da1d20075a8c43ac2a53d0e1b
+      size: 1170
     - path: src/compare_experiments.py
       hash: md5
-      md5: d38bfbc058a91857d6e905ee11832a2e
-      size: 3373
+      md5: b8faa246341c6a44310c6dfbacf25a0f
+      size: 1347
     outs:
     - path: reports/model_comparison.json
       hash: md5
-      md5: 32ec2fb04f3711b2cbb27c9d209d843b
-      size: 370
+      md5: a7f8da61baa0e563320760c537f1472f
+      size: 1171
   monitor_drift:
     cmd: python -m src.monitor_drift
     deps:
@@ -81,10 +81,34 @@ stages:
       size: 2009952
     - path: src/monitor_drift.py
       hash: md5
-      md5: 3e6183cb7b963c43828b1597fd715389
-      size: 3031
+      md5: e570af9b0baadc93d5186e3b6f11da3d
+      size: 3590
     outs:
+    - path: reports/drift_report.html
+      hash: md5
+      md5: 99d678716e6b110946f3d8fc9c08e048
+      size: 4236541
     - path: reports/drift_report.json
       hash: md5
       md5: 381548d52855bbad48a10475c6f6446b
       size: 1491
+  run_experiments:
+    cmd: python -m src.run_experiments
+    deps:
+    - path: configs/config.yaml
+      hash: md5
+      md5: c3c6e6a718ae384c6e4d55e4c1ea6eb5
+      size: 376
+    - path: data/california_housing.csv
+      hash: md5
+      md5: 25c2ddd8a827471174cb09a13f295420
+      size: 2009952
+    - path: src/run_experiments.py
+      hash: md5
+      md5: 6aedacb912e8361632f1dcd1621fbfb3
+      size: 5014
+    outs:
+    - path: reports/experiments_manifest.json
+      hash: md5
+      md5: 32a8ea0da1d20075a8c43ac2a53d0e1b
+      size: 1170
