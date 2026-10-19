@@ -189,23 +189,6 @@ The project was also successfully reproduced in a fresh GitHub clone using Pytho
 
 This project includes automated data drift monitoring using
 statistical hypothesis testing and Evidently AI.
-
-## Future Improvements
-
-- Expand experiment tracking and hyperparameter tuning.
-- Implement a prediction API using FastAPI.
-- Introduce scheduled data drift monitoring and automated model retraining.
-- Add model performance visualizations and an interactive dashboard.
-
-## Author
-
-Leslie Breverman
-
-Data Analytics and Machine Learning Portfolio
-
-[GitHub Profile](https://github.com/lbreverman)
-
-
 ### Monitoring Approach
 
 The monitoring pipeline compares two datasets:
@@ -266,6 +249,22 @@ If drift is detected in production:
 5. Retrain and validate the model on representative,
    updated data if performance has deteriorated.
 6. Deploy an updated model only after successful validation.
+
+## Future Improvements
+
+- Expand experiment tracking and hyperparameter tuning.
+- Implement a prediction API using FastAPI.
+- Introduce scheduled data drift monitoring and automated model retraining.
+- Add model performance visualizations and an interactive dashboard.
+
+## Author
+
+Leslie Breverman
+
+Data Analytics and Machine Learning Portfolio
+
+[GitHub Profile](https://github.com/lbreverman)
+
 
 ### Generated Monitoring Reports
 
