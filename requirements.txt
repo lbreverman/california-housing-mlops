@@ -4,7 +4,7 @@ scikit-learn==1.9.1
 scipy==1.17.1
 dvc==3.67.1
 PyYAML==6.0.3
-GitPython==3.1.0
+GitPython>=3.1.9,<4
 pytest
 joblib==1.6.0
 mlflow==3.17.1
