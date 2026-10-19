@@ -5,11 +5,13 @@ stages:
     - src/prepare_data.py
     outs:
     - data/california_housing.csv
+  
   train_model:
     cmd: python -m src.train
     deps:
     - data/california_housing.csv
     - src/train.py
+    - configs/config.yaml
     outs:
     - models/random_forest_model.joblib
   evaluate_model:

@@ -15,14 +15,18 @@ stages:
   train_model:
     cmd: python -m src.train
     deps:
+    - path: configs/config.yaml
+      hash: md5
+      md5: 3a69573440385b8ac4b9856d643fa978
+      size: 376
     - path: data/california_housing.csv
       hash: md5
       md5: 25c2ddd8a827471174cb09a13f295420
       size: 2009952
     - path: src/train.py
       hash: md5
-      md5: 47fd73487e388fd6755afdcb5761d92d
-      size: 2721
+      md5: 98170f25f78fd029149395d36bb7e70f
+      size: 3264
     outs:
     - path: models/random_forest_model.joblib
       hash: md5
