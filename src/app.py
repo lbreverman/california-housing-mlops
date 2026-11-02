@@ -30,30 +30,17 @@ st.write(
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-BEST_RUN_ID = "b64c0f42d21a4def8b7126e15b891c50"
-
-MODEL_PATH = (
-    PROJECT_ROOT
-    / "mlruns"
-    / "1"
-    / BEST_RUN_ID
-    / "artifacts"
-    / "model"
-    / "RandomForest_200_trees_depth_None.joblib"
-)
-
+MODEL_PATH = PROJECT_ROOT / "models" / "random_forest_model.joblib"
 
 @st.cache_resource
 def load_model():
     return joblib.load(MODEL_PATH)
-
 
 try:
     model = load_model()
 except Exception as error:
     st.error(f"Unable to load model: {error}")
     st.stop()
-
 
 # --------------------------------------------------
 # Store Predictions for the AI Assistant

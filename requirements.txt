@@ -9,3 +9,5 @@ pytest
 joblib==1.6.0
 mlflow==3.17.1
 evidently==0.7.23
+streamlit
+ollama

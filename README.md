@@ -266,6 +266,82 @@ Run the monitoring pipeline with:
 dvc repro monitor_drift
 ```
 
+## AI-Powered Housing Prediction Assistant
+
+This project includes an interactive Streamlit application
+that combines a trained Random Forest regression model with
+a locally running Llama 3.2 language model.
+
+The application allows users to enter California neighborhood
+information, generate estimated median house values, and ask
+natural-language questions about housing predictions.
+
+### Features
+
+- Interactive housing prediction interface built with Streamlit.
+- Random Forest model selected through MLflow experiment tracking.
+- Eight neighborhood inputs, including income, house age,
+  average rooms, population, occupancy, and location.
+- Automatic income category calculation.
+- Estimated neighborhood median house value displayed in USD.
+- Local AI assistant powered by Ollama and Llama 3.2 (3B).
+- AI explanations that reference actual model predictions
+  and neighborhood inputs.
+- Streamlit session state used to retain the latest prediction.
+- No paid AI API required.
+
+The Random Forest model generates numerical predictions.
+Llama 3.2 provides natural-language explanations and does
+not calculate housing values independently.
+
+AI explanations describe possible influences and are not
+formal feature-attribution calculations.
+
+### Running the Application
+
+Install the project dependencies and ensure that Ollama
+is installed and running locally.
+
+Download the language model:
+
+```powershell
+ollama pull llama3.2:3b
+```
+
+Install the application dependencies if they are not already
+available:
+
+```powershell
+python -m pip install streamlit ollama
+```
+
+Start the application:
+
+```powershell
+python -m streamlit run src/app.py --server.address 127.0.0.1
+```
+
+Open the application in your browser:
+
+http://localhost:8501
+
+Enter neighborhood information and click
+**Predict Housing Value**.
+
+Then use **Ask the AI Assistant** to request explanations
+of the prediction or ask general California housing questions.
+
+### Model Requirements
+
+The Streamlit application currently loads the best trained
+Random Forest model from a local MLflow experiment artifact.
+
+The MLflow model artifact must be available at the path
+configured in `src/app.py`.
+
+The application currently runs locally and has not been
+deployed as a public website.
+
 ## Future Improvements
 
 - Expand experiment tracking and hyperparameter tuning.
